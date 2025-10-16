@@ -134,7 +134,7 @@ class Boy:
                 self.SLEEP : {space_down: self.IDLE},
                 self.IDLE : {right_up:self.RUN, left_up : self.RUN, left_down: self.RUN, right_down: self.RUN, time_out: self.SLEEP},
                 self.RUN : {right_down:self.IDLE, left_down:self.IDLE, left_up:self.IDLE, right_up:self.IDLE},
-                self.AUTORUN : {}
+                self.AUTORUN : {time_out:self.IDLE}
             })
 
     def update(self):
