@@ -22,6 +22,24 @@ def space_down(e): # e가 space key input인가를 확인 -> True/False 반환
 class AutoRun:
     def __init__(self, boy):
         self.boy = boy
+    def enter(self, e):
+        if right_down(e) or left_up(e):
+            self.boy.dir = self.boy.face_dir = 1
+        elif left_down(e) or right_up(e):
+            self.boy.dir = self.boy.face_dir = -1
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        self.boy.frame = (self.boy.frame + 1) % 8   # 2초가 경과하면 timeout 이벤트 발생
+        self.boy.x += self.boy.dir * 5
+
+    def draw(self):
+        if self.boy.face_dir == 1: # right
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+        else: # face_dir == -1: # left
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
 
 class Run:
     def __init__(self, boy):
