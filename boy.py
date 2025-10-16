@@ -76,6 +76,7 @@ class Sleep:
 
     def enter(self, e):
         self.boy.dir = 0
+        self.boy.wait_start_time = get_time()  # 현재 지난 시간 체크
 
     def exit(self, e):
         pass
