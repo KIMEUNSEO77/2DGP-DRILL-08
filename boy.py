@@ -12,6 +12,8 @@ def right_up(e): # e가 right key up input인가를 확인 -> True/False
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_RIGHT
 def left_up(e): # e가 left key up input인가를 확인 -> True/False
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
+def input_Akey(e): # e가 A key를 눌렀는지 확인
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == 'a'
 
 def time_out(e): # e가 시간 초과 이벤트인가를 확인 -> True/False 반환
     return e[0] == 'TIME_OUT'
