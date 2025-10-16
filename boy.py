@@ -19,6 +19,9 @@ def time_out(e): # e가 시간 초과 이벤트인가를 확인 -> True/False �
 def space_down(e): # e가 space key input인가를 확인 -> True/False 반환
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
+class AutoRun:
+    pass
+
 class Run:
     def __init__(self, boy):
         self.boy = boy
