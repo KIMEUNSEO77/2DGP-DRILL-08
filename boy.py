@@ -23,10 +23,7 @@ class AutoRun:
     def __init__(self, boy):
         self.boy = boy
     def enter(self, e):
-        if right_down(e) or left_up(e):
-            self.boy.dir = self.boy.face_dir = 1
-        elif left_down(e) or right_up(e):
-            self.boy.dir = self.boy.face_dir = -1
+        pass
 
     def exit(self, e):
         pass
@@ -117,12 +114,15 @@ class Boy:
         self.IDLE = Idle(self)
         self.SLEEP = Sleep(self)
         self.RUN = Run(self)
+        self.AUTORUN = AutoRun(self)
+
         self.state_machine = StateMachine(
-            self.IDLE,  # 초기 상태
+            self.AUTORUN,  # 초기 상태
             {
                 self.SLEEP : {space_down: self.IDLE},
                 self.IDLE : {right_up:self.RUN, left_up : self.RUN, left_down: self.RUN, right_down: self.RUN, time_out: self.SLEEP},
                 self.RUN : {right_down:self.IDLE, left_down:self.IDLE, left_up:self.IDLE, right_up:self.IDLE}
+                self.AUTORUN : {}
             })
 
     def update(self):
