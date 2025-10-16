@@ -1,5 +1,5 @@
 from pico2d import load_image, get_time
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_a
 
 from state_machine import StateMachine
 
@@ -13,7 +13,7 @@ def right_up(e): # e가 right key up input인가를 확인 -> True/False
 def left_up(e): # e가 left key up input인가를 확인 -> True/False
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 def input_Akey(e): # e가 A key를 눌렀는지 확인
-    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == 'a'
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 def time_out(e): # e가 시간 초과 이벤트인가를 확인 -> True/False 반환
     return e[0] == 'TIME_OUT'
@@ -131,10 +131,10 @@ class Boy:
         self.AUTORUN = AutoRun(self)
 
         self.state_machine = StateMachine(
-            self.AUTORUN,  # 초기 상태
+            self.IDLE,  # 초기 상태
             {
                 self.SLEEP : {space_down: self.IDLE},
-                self.IDLE : {right_up:self.RUN, left_up : self.RUN, left_down: self.RUN, right_down: self.RUN, time_out: self.SLEEP},
+                self.IDLE : {input_Akey:self.AUTORUN, right_up:self.RUN, left_up : self.RUN, left_down: self.RUN, right_down: self.RUN, time_out: self.SLEEP},
                 self.RUN : {right_down:self.IDLE, left_down:self.IDLE, left_up:self.IDLE, right_up:self.IDLE},
                 self.AUTORUN : {time_out:self.IDLE}
             })
