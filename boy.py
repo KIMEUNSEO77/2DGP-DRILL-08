@@ -23,20 +23,23 @@ class AutoRun:
     def __init__(self, boy):
         self.boy = boy
     def enter(self, e):
-        pass
+        self.boy.dir = self.boy.face_dir
 
     def exit(self, e):
         pass
 
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8   # 2초가 경과하면 timeout 이벤트 발생
-        self.boy.x += self.boy.dir * 5
+        self.boy.x += self.boy.dir * 10
 
     def draw(self):
-        if self.boy.face_dir == 1: # right
-            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
-        else: # face_dir == -1: # left
-            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+        if self.boy.face_dir == 1:  # right
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 100, 100, 100, 0, '', self.boy.x,
+                                               self.boy.y, 100, 100)
+        else:  # face_dir == -1: # left
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 0, 100, 100, 0, '', self.boy.x,
+                                               self.boy.y, 100, 100)
+
 
 class Run:
     def __init__(self, boy):
@@ -121,7 +124,7 @@ class Boy:
             {
                 self.SLEEP : {space_down: self.IDLE},
                 self.IDLE : {right_up:self.RUN, left_up : self.RUN, left_down: self.RUN, right_down: self.RUN, time_out: self.SLEEP},
-                self.RUN : {right_down:self.IDLE, left_down:self.IDLE, left_up:self.IDLE, right_up:self.IDLE}
+                self.RUN : {right_down:self.IDLE, left_down:self.IDLE, left_up:self.IDLE, right_up:self.IDLE},
                 self.AUTORUN : {}
             })
 
